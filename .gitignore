@@ -23,9 +23,9 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 
-###> Custom env vars ###
+###> Custom app ignors ###
 /public/uploads/
-###< end Custom env vars ###
+###< end Custom app ignors ###
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
