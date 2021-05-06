@@ -9,11 +9,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
  /**
      * @Route("/account")
+     * @IsGranted("ROLE_ADMIN")
      */
 class AccountController extends AbstractController
 {
@@ -22,6 +24,7 @@ class AccountController extends AbstractController
      */
     public function show()
     {
+       
         return $this->render('account/show.html.twig');
     }
     /**
@@ -29,6 +32,7 @@ class AccountController extends AbstractController
      */
     public function edit(Request $request, EntityManagerInterface $em):Response
     {
+     
         $user = $this->getUser();
         $form = $this->createForm(UserFormType::class,$user);
         $form->handleRequest($request);
@@ -48,6 +52,7 @@ class AccountController extends AbstractController
     */
    public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder):Response
    {
+       
       $user = $this->getUser();
       $form =  $this->createForm(ChangePasswordFormType::class,null,[
         'current_password_is_required' => true
