@@ -2,12 +2,14 @@
 
 namespace App\Twig;
 
-use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AppExtension extends AbstractExtension
 {
-  
+   
     public function getFunctions(): array
     {
         return [
