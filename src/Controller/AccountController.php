@@ -28,14 +28,16 @@ class AccountController extends AbstractController
         return $this->render('account/show.html.twig');
     }
     /**
-     * @Route("/edit", name="app_account_edit" , methods={"GET"} )
+     * @Route("/edit", name="app_account_edit" , methods={"GET","PATCH"} )
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function edit(Request $request, EntityManagerInterface $em):Response
     {
      
         $user = $this->getUser();
-        $form = $this->createForm(UserFormType::class,$user);
+        $form = $this->createForm(UserFormType::class,$user,[
+            'method' => 'PATCH'
+        ]);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $em->flush();
@@ -49,7 +51,7 @@ class AccountController extends AbstractController
     }
 
     /** 
-    * @Route("/change-password", name="app_account_change_password" , methods={"GET","POST"} )
+    * @Route("/change-password", name="app_account_change_password" , methods={"GET","PATCH"} )
     * @IsGranted("IS_AUTHENTICATED_FULLY")
     */
    public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder):Response
@@ -57,7 +59,8 @@ class AccountController extends AbstractController
        
       $user = $this->getUser();
       $form =  $this->createForm(ChangePasswordFormType::class,null,[
-        'current_password_is_required' => true
+        'current_password_is_required' => true,
+        'method' => 'PATCH'
       ]);
       $form->handleRequest($request);
       if($form->isSubmitted() && $form->isValid()){

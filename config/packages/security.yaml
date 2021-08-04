@@ -36,5 +36,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        #- { path: ^/account, roles: ROLE_USER }
+        - { path: ^/login$, roles: IS_ANONYMOUS }
+        - { path: ^/, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
+    role_hierarchy:
+        ROLE_PROF: [ROLE_DONNER_COURS, ROLE_ASSIGNER_NOTE, ROLE_DONNER_RETENUE]
+        ROLE_ELEVE: [ROLE_SUIVRE_COURS, ROLE_EXPOSE]
+        ROLE_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
